@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <style>
+          html, body {
+            background-color: #ffcdd2;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+          }
+          #map {
+            height: 100%;
+          }
+          #pix_ctn{
+            display: none;
+
+          } 
+          #pixnet-stuff{
+            display: none;
+          } 
+
+        </style>
+
+    </head>
+
+    <body>
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $('.carousel').carousel({full_width: true});
+          $('.pho-panel').click(function(){
+            $('html,body').animate({scrollTop:$('#content').offset().top},800);
+          });
+          $("#pix").click(function(){
+            $("#panl").hide();
+            $("#content").hide();        
+            $("#pix_ctn").show();
+            $("#pixnet-stuff").show();
+          });
+          $("#papa").click(function(){
+            $("#panl").show();
+            $("#content").show();
+            $("#pix_ctn").hide();
+            $("#pixnet-stuff").hide();
+          });
+          
+
+        });
+
+        //Map
+        var markers =[];
+        var latlng=[
+          {lat:24.125781, lng:120.675673},
+          {lat:24.115322, lng:120.680951},
+          {lat:24.124809, lng:120.673502}, //香草藍舍
+          {lat:24.117194, lng:120.666147},
+          {lat:24.124890, lng:120.676388}
+        ];
+        function initMap(x=0){
+          var haightAshbury = latlng[x];
+          //var haightAshbury ={lat:24.125781, lng:120.675673}; //呆呆麵
+          map = new google.maps.Map(document.getElementById('map'),{
+            zoom:16,
+            center: haightAshbury,
+            mapTypeId: google.maps.MapTypeId.TERRAIN
+          });
+          
+          addMarker(haightAshbury)
+          
+        }
+        function getPos(lat){
+          deleteMarkers();
+          addMarker(latlng[lat]);
+        }
+
+        // Adds a marker to the map and push to the array.
+        function addMarker(location) {
+          var marker = new google.maps.Marker({
+            position: location,
+            map: map
+          });
+          markers.push(marker);
+        }
+
+      </script>
+      <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
+
+      <script type="text/javascript">
+        var i=0;
+        var x=[
+          {"pho":["food/1-1.jpg","food/1-2.jpg","food/1-3.jpg"]},
+          {"pho":["food/2-2.jpg","food/2-3.jpg","food/2-4.jpg"]},
+          {"pho":["food/3-1.jpg"]},
+          {"pho":["food/4-1.jpg","food/4-2.jpg","food/4-3.jpg"]},
+          {"pho":["food/5-1.jpg","food/5-2.jpg","food/5-3.jpg"]}
+        ];
+
+        /*var x =[  "http://www.zastavki.com/pictures/originals/2015/Nature___Seasons_All_seasons_in_one_picture_098064_.jpg",
+                  "http://picpulp.com/wp-content/uploads/2013/03/81.jpg?x11708",
+                  "https://static.independent.co.uk/s3fs-public/thumbnails/image/2013/01/24/12/v2-cute-cat-picture.jpg",
+                  "http://www.telegraph.co.uk/content/dam/news/2016/05/12/97555692_RESTRICETD-PIC-BY-NATURE-THROUGH-A-LENS-MERCURY-PRESS-PICTURED-THE-TWO-BABY-TAWNY-OWLS-ADOPTED-BY-WISE-large_trans++eo_i_u9APj8RuoebjoAHt0k9u7HhRJvuo-ZLenGRumA.jpg",
+                  "http://i.telegraph.co.uk/multimedia/archive/03519/potd-squirrel_3519920k.jpg"  
+            ]*/
+        function f1(y,z){  //切換ctn照片
+          i = i + y;
+         
+          if(i<0)
+            i = i + x[z].pho.length;
+
+          else
+            i = i % x[z].pho.length;
+          document.getElementById("pics").innerHTML = " <img src= ' " + x[z].pho[i] +" 'class='square' width='270' height='185' > ";
+        }
+      </script>
+
+      <script type="text/javascript">
+        var title=['面對面食堂','巷弄的無名小攤','小叮噹','曾記水餃大王','西班牙冰沙'];
+        var ctn=[
+          '<p>坐落於興大正門一帶，吃飯時間總是爆滿人潮，所以我通常都是等一點或是六點後才去吃。 <br><br>最推薦吃他們的餛飩，大顆又美味 <br><br>金錢允許的話，推薦吃特餐B餐，乾麵類可選呆呆麵，清爽可口！<br><br>              此外，老闆非常親切，之前我邊用餐邊用手機看小丸子，他還問我看哪幾集，他也很喜歡看，老闆真可愛>',
+          '<p>一間沒有任何店名，招牌上只有小小的圖片，且又位在大買家附近的小巷弄裡。 <br><br>如此不起眼的店，應該會生意冷清<br><br>然而吃飯時間，老闆娘從未閒過，一份煎餃要等三十分鐘！ <br><br>最愛吃他們的豬肉麻辣湯麵，湯頭甜美、用料實在，有別於一般的湯麵，裡頭有小魚乾、蝦米，還有一些中藥材，寒冬時來一碗相當享受！',
+          '<p>位於興大正門附近，中午時刻總是充滿人群<br><br>曾經有過午餐等了快一個小時，若不想等待的話，建議十二點前過去，或是晚餐時刻再吃。<br><br>我通常都點它們的什錦炒飯或炒麵，料相當多，還有大塊的花枝。<br><br>此外，內用免費的湯並不會因為是免費就喝起來像水，湯頭用大骨熬過，且佈滿蘿蔔，喝起來相當鮮甜~',
+          '<p>曾記離中興稍微遠一些，在美村南路與工學路交叉口附近。<br><br>大力推薦他們的水餃，一份雖然只有十顆，但每顆的料都很飽滿，正常食量的人一份即可。食量稍大的話再加點一碗湯，就會有種撐破腸肚的感覺了。<br><br>有朋友推薦他們的牛肉麵，肉多又嫩，若有興趣也可以嘗試看看哦~',
+          '<p>素食的朋友有福了！<br><br>這是間西式素食店，從店外的布置就可感受到原始自然風格。<br><br>馬鈴薯是他們的招牌菜，若覺得小貴的話，他們的蠔油煲飯也是人氣商品之一。<br><br>除了主餐外，亦提供多種名字特別的冰沙，像是「遺憾」、「年少輕狂」'
+        ];
+
+        var time=['不固定','10-21','10-21','10-21','每日10:00-21:30'];
+        var phon=['0923-325841','0955-944169','34','(04)2260-5759','(04)2285-2996'];
+        var addr=['台中市南區仁義街88號','台中市大里區永興路327號','aaa','台中市南區工學路40號','台中市南區復新街87巷3號'];
+        var phoes=[
+        //https://static.independent.co.uk/s3fs-public/thumbnails/image/2013/01/24/12/v2-cute-cat-picture.jpg",
+            "food/1-1.jpg",
+            "food/2-2.jpg",
+            "food/3-1.jpg",
+            "food/4-1.jpg",
+            "food/5-1.jpg"
+        ];
+
+        function f2(y){    //更換整個ctn內容  
+            str="";
+            str+='<div class="row">';
+            str+='<div class="col s12 m4 l8"> <div style="margin-left: 7px">';
+            str+='<h4>' + title[y] + '</h4>';
+            str+='<p>' + ctn[y] + '<br><br></p>';
+            str+='<h5>店家資訊:</h5>';
+            str+='<dl> <dt>營業時間</dt> <dd>- '+ time[y] +'</dd>';
+            str+='<dt>聯絡電話</dt> <dd>- '+ phon[y] +'</dd>';
+            str+='<dt>地址</dt> <dd>- <a href="1st.html">'+ addr[y] +'</a></dd></dl>';
+            str+='</div> </div>';
+          //right-hand side photoes
+            str+='<div class="col s12 m4 l4"><br>';   
+            str+='<div id="pics"> <img src="' + phoes[y] + '" class="square" width="270" height="185"></div>';
+            str+='<div>';
+            str+='<a onclick="f1(-1,'+ y.toString() +')" class="waves-effect waves-light btn" style="display:inline; width: 25px; padding: 5px">上一張</a>';
+            str+=' <a onclick="f1(1,'+y.toString()+')" class="waves-effect waves-light btn" style="display:inline; width: 30%; padding: 5px">下一張</a></div><p>';
+
+            str+='<div id="map" style="height: 230px;"> </div>';
+            str+='</div> </div>' ;
+
+            document.getElementById("content").innerHTML=str;  
+            initMap(y);
+        }
+      </script>
+
+      <nav>
+          <div class="nav-wrapper" style="background-color: #bcaaa4">
+            
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+              <li><a href="home.html" id="home"><i class="large material-icons" style="font-size: 40px">home</i></a></li>
+              <li><a id="pix">PIX</a></li>
+              <li><a id="papa" data-activates="Go">PA PA GO</a></li>
+              <li>
+                <a href="https://www.pixnet.net/searcharticle?q=%E4%B8%AD%E8%88%88%E5%A4%A7%E5%AD%B8%E9%99%84%E8%BF%91%E7%BE%8E%E9%A3%9F&page=1" target="_blank"><i class="material-icons">search</i></a>
+              </li>
+            </ul>
+          </div>
+      </nav>
+<!--最上面的panel照片-->
+      <div class="pho-panel" id="panl">
+        <div class="container" > <br>
+          <div class="carousel carousel-slider">
+            <a class="carousel-item" href="javascript:f2(0)"><img src="food/1-0.jpg"></a>
+            <a class="carousel-item" href="javascript:f2(1)"><img src="food/2-1.jpg"></a>
+            <a class="carousel-item" href="javascript:f2(2)"><img src="food/3-0.jpg"></a>
+            <a class="carousel-item" href="javascript:f2(3)"><img src="food/4-0.jpg"></a>
+            <a class="carousel-item" href="javascript:f2(4)"><img src="food/5-1.jpg"></a>
+            
+          </div>
+        </div>
+      </div>
+      <br>
+
+<!--面對面-->
+      <div class="container" id="content" style="background-color: #e3f2fd; height:500px;">
+        <div class="row">
+          
+          <div class="col s12 m4 l8">
+          <!--ctn area-->
+            <div style="margin-left: 7px">
+              <h4> 面對麵食堂</h4>
+              <p>坐落於興大正門一帶，吃飯時間總是爆滿人潮，所以我通常都是等一點或是六點後才去吃。 <br><br>
+              最推薦吃他們的餛飩，大顆又美味 <br><br>
+              金錢允許的話，推薦吃特餐B餐，乾麵類可選呆呆麵，清爽可口！<br><br>
+              此外，老闆非常親切，之前我邊用餐邊用手機看小丸子，他還問我看哪幾集，他也很喜歡看，老闆真可愛>< <br><br>
+              </p>
+              <h5>店家資訊：</h5>
+              <dl>
+                <dt>營業時間</dt>
+                  <dd>- 不固定</dd>
+                <dt>聯絡電話</dt>
+                  <dd>- 0923-325841</dd>
+                <dt>地址</dt>
+                  <dd>- <a>台中市南區仁義街88號</a></dd>                
+              </dl>
+            </div>
+          </div>
+          
+          <div class="col s12 m4 l4">         
+            <br>
+            <div id="pics">
+              <img src="food/1-1.jpg" alt=""  class="square" width="270" height="185">
+            </div>
+            <div>
+            <a onclick="f1(-1,0)" class="waves-effect waves-light btn" style="display:inline; width: 25px; padding: 5px">上一張</a>    
+            <a onclick="f1(1,0)" class="waves-effect waves-light btn" style="display:inline; width: 30%; padding: 5px">下一張</a>
+            </div>      
+            <p>           
+            <div id="map" style="height: 230px;"> 
+            </div>        
+          </div> 
+        </div>
+      </div>
+      <br>
+<!--pix-->
+      <script>
+      var xmlhttp = new XMLHttpRequest();
+      var url = "https://emma.pixnet.cc/mainpage/blog/categories/hot/26?page=1&per_page=12&api_version=2&format=json";
+      //hot, 26:美味食記
+      xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+          var myArr = JSON.parse(xmlhttp.responseText);
+          myFunction(myArr);
+        }
+      }
+      xmlhttp.open("GET", url, true);
+      xmlhttp.send();
+  ///////////////////////////////////////////////////////////////////////////////////////////
+      function myFunction(arr) {
+        var data = arr.articles;
+        var out = "";
+        var i;
+        var temp=""
+        for (i = 0; i < data.length; i++) {         
+          out += '<div class="col s12 m6 l3" ><div class="card medium"><div class="card-image">';          
+          if ( data[i].thumb != "" ) out += '<img src="' + data[i].thumb + ' "height="180">';
+          if ( data[i].title != "" ) out += '<span class="title" style="font-size:small;font-weight:bold;">' + data[i].title +'</span></div>';           
+          if ( data[i].tags.length != 0 )
+          {
+            out += '<div class="card-content"  style="font-size:x-small"> <p>';
+            for (j = 0; j < data[i].tags.length; j++) {
+              out += data[i].tags[j].tag + ', ';              
+            }
+            out += '</div>';
+          }          
+          out += '<div class="card-action"><a href="'+ data[i].link + '" target="_blank">click me</a></div>';
+          out += '</div></div>';
+        }
+        document.getElementById("pixnet-stuff").innerHTML = out;
+      }
+      </script>
+
+      <div class="row" id="pix_ctn">          
+          <div class="col s12 m4 l4"></div>
+          <div class="col s12 m4 l4">
+            <div class="card-panel red darken-1" style="font-size: 18px;">
+              <span class="white-text" >
+                  以下提供痞客幫網站中，美味食記分類的熱門文章前12篇來介紹台灣不同地區的美食，讓饕客們能吃遍全台<br>此外，依據網站熱門程度來呈現一個比較客觀的美味依據。<br>
+                  若想要知道痞客幫裡關於興大附近的美食，亦可點選左上方的搜尋圖示，將會連結到相關網頁
+              </span>
+            </div>
+          </div>
+          <div class="col s12 m4 l4"></div>
+       </div>
+            
+      <div class="row" id="pixnet-stuff" style="height: 250">
+      </div>
+
+   
+    </body>
+  </html>
